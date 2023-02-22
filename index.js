@@ -1,7 +1,8 @@
 const fs = require('fs').promises
 const inquirer = require('inquirer')
-const shapes = require('./lib/shapes')
-
+const { Circle, Triangle, Square } = require('./lib/shapes')
+const SVG = require('./lib/svg')
+const { writeFile } = require('fs/promises');
 
 const questions = [
     {
@@ -31,21 +32,30 @@ const questions = [
 function writeToFile() {
     inquirer.prompt(questions)
         .then((answers) => {
-            // console.log(answers);
-            const circle = shapes.Circle.createCircle(answers)
-            const triangle = shapes.Triangle.createTriangle(answers)
-            const square = shapes.Square.createSquare(answers)
-            if (answers.shapeType === 'Circle') {
-                fs.writeFile('./examples/logo.svg', circle, (err) =>
-                    err ? console.log(err) : console.log('Generated logo.svg'))
-                } else if (answers.shapeType === 'Triangle') {
-                fs.writeFile('./examples/logo.svg', triangle, (err) =>
-                    err ? console.log(err) : console.log('Generated logo.svg'))
-                } else if (answers.shapeType === 'Square'){
-                    fs.writeFile('./examples/logo.svg', square, (err) =>
-                        err ? console.log(err) : console.log('Generated logo.svg'))
-                }
+            let shape;
+            const svg = new SVG()
+            switch (answers.shapeType) {
+                case "Square":
+                    shape = new Square();
+                    svg.renderText(answers.svgText, answers.textColor, 33, 55, 5)
+                    break;
+                case "Circle":
+                    shape = new Circle();
+                    svg.renderText(answers.svgText, answers.textColor, 50, 60, 4.8)
+                    break;
+                    default: 
+                    shape = new Triangle();
+                    svg.renderText(answers.svgText, answers.textColor, 50, 70, 2.7)
+                    break;
+            }
+            shape.setColor(answers.shapeColor)
+
+            console.log(shape)
+            svg.renderShape(shape)
+            return writeFile('./examples/logo.svg', svg.renderSvg())
         })
+        .then(() => console.log('success'))
+        .catch((err) => console.log(err))
 }
 
 writeToFile()
