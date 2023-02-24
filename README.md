@@ -23,7 +23,11 @@
   
   ## Usage
   
-  To use this download the entire file to your computer. Once it is downloaded and the ZIP folder is extracted, navigate in shell or CLI to the folder. Once in the folder enter "node index.js" to start the program. Then you need to answer the questions. When the SVG is generated you will find it in the Examples folder. See the linked video for an example. 
+  To use this download the entire file to your computer. Once it is downloaded and the ZIP folder is extracted, navigate in shell or CLI to the folder. Once in the folder enter "node index.js" to start the program. Then you need to answer the questions. When the SVG is generated you will find it in the Examples folder. 
+  
+  See the linked video for an example. 
+  
+  [Video Link](https://drive.google.com/file/d/1lgA4l8AC8arAXqlKBT3XFpeghRkj0SAW/view)
   
   ## Credits
   
